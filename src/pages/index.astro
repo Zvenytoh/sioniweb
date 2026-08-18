@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects';
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="hero-grid"><span>Independent digital studio</span><span>Arras, France</span><span>Est. 2026</span></div>
+    <div class="hero-image" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <h1>SIONI<br />WEB</h1>
+      <p>Nous construisons l’image digitale des commerces qui méritent d’être remarqués.</p>
+    </div>
+    <a href="#work" class="scroll-link">Découvrir nos projets <b>↓</b></a>
+    <div class="hero-tag">Web — Photography — Content</div>
+  </section>
+
+  <section class="manifesto">
+    <div class="eyebrow">(01) A studio for the real world</div>
+    <p>Studio digital indépendant basé dans les Hauts-de-France. Nous associons design, développement et photographie pour créer des présences digitales cohérentes — du premier shooting jusqu’à la mise en ligne.</p>
+  </section>
+
+  <section id="work" class="work">
+    <div class="work-heading"><span class="eyebrow">(02) Selected work</span><h2>Des projets<br />qui ont quelque chose<br /><i>à dire.</i></h2></div>
+    <div class="project-list">
+      {projects.map((project, index) => <a href={`/work/${project.slug}`} class:list={["project", `project-${index + 1}`]}>
+        <div class="project-meta"><span>{project.number}</span><span>{project.type}</span><span>{project.year}</span></div>
+        <div class="project-image"><img src={project.image} alt={`Projet ${project.title}`} loading={index === 0 ? 'eager' : 'lazy'} /></div>
+        <div class="project-title"><h3>{project.title}</h3><span>Voir le projet ↗</span></div>
+      </a>)}
+    </div>
+  </section>
+
+  <section class="services-preview">
+    <span class="eyebrow">(03) What we do</span>
+    <div class="service-lines"><a href="/services"><span>01</span>Web <b>Sites qui donnent envie d’entrer.</b><i>↗</i></a><a href="/photography"><span>02</span>Photography <b>Des images qui ont du caractère.</b><i>↗</i></a><a href="/services"><span>03</span>Content <b>Une identité qui se prolonge.</b><i>↗</i></a></div>
+  </section>
+
+  <section class="contact-cta"><p>Votre commerce mérite mieux qu’une présence en ligne générique.</p><a href="/contact">Parlons de votre projet <b>↗</b></a></section>
+</BaseLayout>
+
+<style>
+  .hero { min-height:100svh; background:#171816; color:var(--paper); position:relative; display:flex; flex-direction:column; justify-content:flex-end; padding:clamp(100px,12vw,180px) 3vw 32px; overflow:hidden; }
+  .hero-image { position:absolute; inset:0; opacity:.57; background:linear-gradient(90deg,rgba(18,18,16,.93) 0%,rgba(18,18,16,.48) 49%,rgba(18,18,16,.12) 100%),url('/images/akoyas-hair.png') center/cover; animation:heroIn 1s ease-out both; }
+  .hero-grid { position:absolute; top:86px; left:3vw; right:3vw; display:flex; justify-content:space-between; font:400 10px var(--mono); text-transform:uppercase; letter-spacing:.04em; z-index:1; }
+  .hero-copy,.hero-tag,.scroll-link { position:relative; z-index:1; } .hero-copy { max-width:900px; }
+  h1 { font-size:clamp(90px,15vw,240px); letter-spacing:-.105em; line-height:.7; margin:0; font-weight:800; }
+  .hero-copy p { font-size:clamp(17px,1.6vw,24px); line-height:1.25; max-width:450px; margin:48px 0 0 8px; }
+  .scroll-link { position:absolute; bottom:35px; right:3vw; font:500 11px var(--mono); text-transform:uppercase; } .scroll-link b { padding-left:18px; font-size:20px; }
+  .hero-tag { position:absolute; bottom:39px; left:3vw; font:400 10px var(--mono); text-transform:uppercase; }
+  .manifesto { padding:clamp(110px,16vw,240px) 3vw; display:grid; grid-template-columns:1fr 2.1fr; gap:12vw; }
+  .manifesto p { margin:0; font-size:clamp(28px,4.1vw,67px); line-height:1.05; letter-spacing:-.065em; max-width:1050px; }
+  .work { background:var(--ink); color:var(--paper); padding:9vw 3vw 14vw; } .work-heading { display:grid; grid-template-columns:1fr 2.1fr; }
+  .work h2 { margin:0 0 13vw; font-size:clamp(48px,7vw,110px); line-height:.91; letter-spacing:-.085em; } .work h2 i { font-weight:400; }
+  .project { display:block; margin-bottom:14vw; } .project-meta { border-top:1px solid rgba(243,241,235,.35); padding:11px 0 17px; display:grid; grid-template-columns:1fr 3fr 1fr; font:400 10px var(--mono); text-transform:uppercase; }
+  .project-image { overflow:hidden; background:#282824; } .project-image img { width:100%; aspect-ratio:16/8.2; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1); } .project:hover img { transform:scale(1.035); }
+  .project-2 { max-width:76%; margin-left:auto; } .project-3 { max-width:86%; }
+  .project-title { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding-top:15px; } .project-title h3 { font-size:clamp(29px,5vw,80px); letter-spacing:-.07em; line-height:.95; margin:0; } .project-title span { font:400 10px var(--mono); text-transform:uppercase; white-space:nowrap; }
+  .services-preview { padding:10vw 3vw 11vw; } .service-lines { margin-top:8vw; border-top:1px solid var(--line); }.service-lines a { border-bottom:1px solid var(--line); display:grid; grid-template-columns:8% 27% 1fr auto; gap:16px; align-items:center; padding:19px 0; font-size:clamp(30px,5vw,80px); letter-spacing:-.07em; line-height:1; transition:padding .3s; }.service-lines a:hover { padding-left:14px; }.service-lines span,.service-lines i { font:400 10px var(--mono); letter-spacing:0; }.service-lines b { font-size:clamp(12px,1.2vw,17px); font-weight:500; letter-spacing:-.02em; }.service-lines i { font-size:21px; }
+  .contact-cta { background:var(--lime); padding:8vw 3vw 9vw; min-height:55vw; display:flex; flex-direction:column; justify-content:space-between; }.contact-cta p { font-size:clamp(35px,5.7vw,90px); line-height:.95; letter-spacing:-.08em; max-width:1000px; margin:0; }.contact-cta a { align-self:flex-end; font-size:clamp(19px,2vw,28px); border-bottom:1px solid currentColor; padding-bottom:3px; }.contact-cta b { margin-left:24px; }
+  @keyframes heroIn { from{transform:scale(1.06);opacity:0}to{transform:scale(1);opacity:.57} }
+  @media(max-width:900px) { .hero-tag{display:none}.scroll-link{position:relative;right:auto;bottom:auto;align-self:flex-start;margin:18px 0 0}.scroll-link b{padding-left:12px} }
+  @media(max-width:720px) { .hero { padding:155px 20px 28px; } .hero-grid { left:20px; right:20px; top:75px; }.hero-grid span:nth-child(2){display:none}.hero-copy p{margin:30px 0 0;max-width:290px;font-size:16px}.scroll-link{font-size:9px}.manifesto,.work-heading{grid-template-columns:1fr;gap:36px}.manifesto{padding:100px 20px}.work{padding:90px 20px}.work h2{margin-bottom:80px}.project{margin-bottom:90px}.project-meta{grid-template-columns:1fr 2fr 1fr;font-size:9px}.project-image img{aspect-ratio:4/4.6}.project-2,.project-3{max-width:100%;margin-left:0}.project-title{padding-top:12px}.project-title span{font-size:9px}.services-preview{padding:100px 20px}.service-lines{margin-top:60px}.service-lines a{grid-template-columns:28px 1fr auto; padding:16px 0}.service-lines b{display:none}.contact-cta{padding:60px 20px;min-height:80vw}.contact-cta a{align-self:flex-start;margin-top:55px} }
+</style>

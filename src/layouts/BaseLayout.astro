@@ -1,0 +1,75 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'SIONIWEB — Web, Photography, Content',
+  description = 'Studio digital indépendant près d’Arras. Web, photographie et contenu pour les commerces qui méritent d’être remarqués.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#121210" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? Astro.url).href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'SIONIWEB',
+      description, areaServed: ['Arras', 'Pas-de-Calais', 'Hauts-de-France'],
+      url: Astro.site?.href ?? Astro.url.origin,
+      sameAs: ['https://www.instagram.com/', 'https://www.linkedin.com/'],
+    })} />
+    <style is:global>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+      :root { --ink:#121210; --paper:#f3f1eb; --warm:#e8e4dc; --line:rgba(18,18,16,.18); --lime:#d4ff4c; --sans:'Manrope',Arial,sans-serif; --mono:'DM Mono',monospace; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; background:var(--paper); }
+      body { margin:0; color:var(--ink); background:var(--paper); font-family:var(--sans); font-size:16px; line-height:1.45; }
+      a { color:inherit; text-decoration:none; }
+      img { max-width:100%; display:block; }
+      ::selection { background:var(--lime); color:var(--ink); }
+      .site-header { display:flex; align-items:center; justify-content:space-between; padding:20px 3vw; position:absolute; top:0; width:100%; z-index:10; color:var(--paper); mix-blend-mode:difference; }
+      .brand { font-weight:800; font-size:17px; letter-spacing:-.07em; }
+      .nav { display:flex; gap:26px; align-items:center; font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.02em; }
+      .nav a { transition:opacity .2s; } .nav a:hover { opacity:.55; }
+      .nav .start { border:1px solid currentColor; padding:9px 12px; border-radius:99px; }
+      .page { overflow:hidden; }
+      .footer { background:var(--ink); color:var(--paper); padding:5.5vw 3vw 2vw; }
+      .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr; border-top:1px solid rgba(243,241,235,.3); padding-top:18px; gap:24px; }
+      .footer h2 { font-size:clamp(48px,9vw,140px); letter-spacing:-.085em; margin:0; line-height:.85; }
+      .footer small,.eyebrow { font:400 10px var(--mono); letter-spacing:.04em; text-transform:uppercase; }
+      .footer a { display:block; margin:3px 0; font-size:14px; }
+      .footer-bottom { border-top:1px solid rgba(243,241,235,.3); margin-top:78px; padding-top:14px; display:flex; justify-content:space-between; font:400 10px var(--mono); text-transform:uppercase; }
+      @media(max-width:720px) { .site-header { padding:17px 20px; } .nav a:not(.start) { display:none; } .nav { gap:10px; } .footer { padding:70px 20px 20px; } .footer-top { grid-template-columns:1fr 1fr; } .footer-top h2 { grid-column:1/-1; font-size:72px; } .footer-bottom { margin-top:60px; } }
+      @media (prefers-reduced-motion:reduce) { *,*:before,*:after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">SIONIWEB</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="/#work">Work</a><a href="/services">Services</a><a href="/about">About</a><a class="start" href="/contact">Start a project ↗</a>
+      </nav>
+    </header>
+    <main class="page"><slot /></main>
+    <footer class="footer">
+      <div class="footer-top">
+        <h2>SIONI<br />WEB®</h2>
+        <div><small>Studio</small><p>Web<br />Photography<br />Content</p></div>
+        <div><small>Find us</small><p>Arras — Hauts-de-France</p><a href="mailto:hello@sioniweb.fr">hello@sioniweb.fr</a><a href="https://instagram.com">Instagram ↗</a><a href="https://linkedin.com">LinkedIn ↗</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 SIONIWEB</span><span>Made for real-world businesses</span><a href="/contact">Parlons de votre projet ↗</a></div>
+    </footer>
+  </body>
+</html>

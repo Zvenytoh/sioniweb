@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+---
+<BaseLayout title="Work — SIONIWEB">
+  <section class="work-page"><div class="eyebrow">Selected work — 2026</div><h1>Des histoires<br /><i>en images.</i></h1><p>Une sélection de présences digitales et d’univers visuels construits près d’Arras.</p></section>
+  <section class="grid">{projects.map((project) => <a href={`/work/${project.slug}`}><img src={project.image} alt={project.title} /><div><span>{project.number} — {project.year}</span><h2>{project.title}</h2><p>{project.type}</p></div></a>)}</section>
+</BaseLayout>
+<style>
+ .work-page{background:var(--ink);color:var(--paper);padding:22vh 3vw 11vw}.work-page h1{font-size:clamp(62px,11vw,170px);letter-spacing:-.1em;line-height:.82;margin:7vw 0 4vw}.work-page h1 i{font-weight:400}.work-page p{font-size:18px;max-width:330px;margin-left:auto}.grid{padding:8vw 3vw;display:grid;grid-template-columns:1fr 1fr;gap:7vw 2vw}.grid a:nth-child(2){margin-top:12vw}.grid img{width:100%;aspect-ratio:4/4.4;object-fit:cover;transition:transform .5s}.grid a:hover img{transform:scale(.98)}.grid div{border-top:1px solid var(--line);padding-top:11px;margin-top:14px}.grid span,.grid p{font:10px var(--mono);text-transform:uppercase}.grid h2{font-size:clamp(31px,4vw,63px);letter-spacing:-.07em;line-height:1;margin:5px 0}@media(max-width:720px){.work-page{padding:170px 20px 90px}.work-page p{margin:50px 0 0}.grid{display:block;padding:70px 20px}.grid a{display:block;margin-bottom:60px}.grid a:nth-child(2){margin-top:0}}
+</style>
